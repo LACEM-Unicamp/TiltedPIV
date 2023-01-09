@@ -51,7 +51,7 @@ showimpeller = 1;
 %Set Figure
 %--------------------------------------------------------------------------
 figure(1);
-set(figure(1),'Position',[50 50 800 200]);
+set(figure(1),'Position',[50 50 750 200]);
 layout = tiledlayout(1,4);
 layout.OuterPosition = [0 0 0.95 0.95];
 

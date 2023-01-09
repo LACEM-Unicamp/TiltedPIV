@@ -43,16 +43,16 @@ cam = {'Cam 2', 'Cam 1', ''};
 column_title = {'(a)', '(b)', '(c)'};
 pass = '4';
 parameter = 'rms';
-component = 'axial';
+component = 'radial';
 
 cmin = 0.0;
-cmax = 0.08;
+cmax = 0.12;
 showimpeller = 1;
 %-------------------------------------------------------------------------- 
 %Set Figure
 %--------------------------------------------------------------------------
 figure(1);
-set(figure(1),'Position',[50 50 700 800]);
+set(figure(1),'Position',[50 50 650 800]);
 layout = tiledlayout(4,3);
 layout.OuterPosition = [0 0 0.95 0.95];
 

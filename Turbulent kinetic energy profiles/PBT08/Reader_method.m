@@ -6,7 +6,7 @@ mydir  = pwd;
 global dxe dye R H U_tip
 
 if strcmp(tec,'PIV')
-    Dir = ['C:\Users\Usuario\Documents\Aline De Mitri\Resultados\',impeller,'\',tec,'\',cam,'\',AR,'\','PIV_pass',pass];
+    Dir = ['C:\Users\Usuario\Documents\Aline De Mitri\Dados\',impeller,'\',tec,'\',cam,'\',AR,'\','PIV_pass',pass];
     cd (Dir)
     
     load rms_v.mat rms_v
@@ -31,7 +31,7 @@ if strcmp(tec,'PIV')
     var_y=var_y./H;
     
 elseif strcmp(tec,'SPIV')
-    Dir = ['C:\Users\Usuario\Documents\Aline De Mitri\Resultados\',impeller,'\',tec,'\',AR,'\','PIV_pass',pass];
+    Dir = ['C:\Users\Usuario\Documents\Aline De Mitri\Dados\',impeller,'\',tec,'\',AR,'\','PIV_pass',pass];
     cd (Dir)
 
     load rms_v.mat rms_v

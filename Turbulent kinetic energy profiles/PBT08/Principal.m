@@ -1,15 +1,15 @@
-%Comparison among velocity gradients profiles
+%Comparison among turbulent kinetic energy profiles
 %--------------------------------------------------------------------------
 %Saving status
 %--------------------------------------------------------------------------
 save_tif = 1; % in .tif
 save_svg = 1; % in .svg
 %--------------------------------------------------------------------------
-%Font stile
+%Font style
 %--------------------------------------------------------------------------
-EstiloFonte2
+FontStyle
 %--------------------------------------------------------------------------
-%Globa configurations
+%Global configurations
 %--------------------------------------------------------------------------
 global dxe dye R H U_tip
 
@@ -36,19 +36,28 @@ met_SPIV = {'3C'};
 tec = {'PIV', 'SPIV'};
 cam = {'Cam 1', 'Cam 2'};
 horizontal = {'z/H = 0.38', 'z/H = 0.34', 'z/H = 0.28', 'z/H = 0.23'}; %position of the profiles in the horizontal direction
-start_x_H = {0.15, 0.4, 0.4, 0.15};
+start_x_H = {0.057, 0.057, 0.057, 0.057};
 start_y_H = {0.38, 0.34, 0.28, 0.23};
+lim_min_y = 0.025;
+lim_max_y = 0.14;
+
+impeller = 'PBT4508';
+parameter = 'tke_profile';
 
 figure(1);
-set(figure(1),'Position',[50 50 800 800]);
+set(figure(1),'Position',[50 50 850 800]);
 layout = tiledlayout(4, 4);
 tilespacing = 'tight';
         
 for a = 1:length(horizontal)
     for b = 1:length(angle)
         nexttile
-        hold on    
         
+        hold on
+        impeller_limits(a,angle{b})
+        hold off
+                
+        hold on    
         tec = 'SPIV';
         cam = '';
         met_PIV = '3C';
@@ -74,26 +83,29 @@ for a = 1:length(horizontal)
         scatter(lx_final, outx_final, 15, 'filled','^')
         box on
     
-        xlim ([start_x_H{a} 0.47])
-        ylim ([0.025 0.1])
+        xlim ([start_x_H{a} 0.48])
+        ylim ([lim_min_y lim_max_y])
         yticks([])
+        xticks([])
                
         if a == 1
             title(AR{b})            
         elseif a == length(horizontal)
-            xlabel('r/R')            
+            xlabel('r/R')
+            xticks(0.0:0.2:0.48)
         else
         end
         if b == 1
-            ylabel(horizontal{a}, 'FontSize', 12)
-            yticks(0.02:0.02:0.10)
+            ylabel(horizontal{a},'fontweight','bold')
+            yticks(0.02:0.03:0.14)
             hold off
         else
             hold off
         end
     end
 end
-lh = legend({'Stereo-PIV - k_{3C}','Classic PIV - k_{iso}','Tilted PIV - k_{2C}'}, 'FontSize', 12, 'Orientation', 'horizontal');
+lh = legend({'impeller edge classic PIV','impeller edge tilted PIV','Stereo-PIV - k_{3C}','Classic PIV - k_{iso}','Tilted PIV - k_{2C}'}, 'FontSize', 12, 'Orientation', 'horizontal');
 lh.Layout.Tile = 'south';
-% ylabel(layout, 'k/U_{tip}^2')
-Save(save_tif, save_svg)
+lh.NumColumns = 3;
+
+Save(save_tif, save_svg, impeller, parameter,'')

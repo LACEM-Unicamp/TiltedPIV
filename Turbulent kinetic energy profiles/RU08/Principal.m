@@ -2,12 +2,12 @@
 %--------------------------------------------------------------------------
 %Saving status
 %--------------------------------------------------------------------------
-save_tif = 0; % in .tif
-save_svg = 0; % in .svg
+save_tif = 1; % in .tif
+save_svg = 1; % in .svg
 %--------------------------------------------------------------------------
 %Font style
 %--------------------------------------------------------------------------
-EstiloFonte2
+FontStyle
 %--------------------------------------------------------------------------
 %Global configurations
 %--------------------------------------------------------------------------
@@ -35,15 +35,18 @@ met_PIV = {'iso',  '2C'};
 met_SPIV = {'3C'}; 
 tec = {'PIV', 'SPIV'};
 cam = {'Cam 1', 'Cam 2'};
+
 horizontal = {'z/H = 0.38', 'z/H = 0.33', 'z/H = 0.30', 'z/H = 0.24'}; %position of the profiles in the horizontal direction
 start_x_H = {0.057, 0.057, 0.057, 0.057};
 start_y_H = {0.38, 0.33, 0.30, 0.24};
 lim_min_y = 0.02;
 lim_max_y = 0.2;
 
+impeller = 'RUSHTON08';
+parameter = 'tke_profile';
 
 figure(1);
-set(figure(1),'Position',[50 50 800 800]);
+set(figure(1),'Position',[50 50 900 800]);
 layout = tiledlayout(4, 4);
 tilespacing = 'tight';
         
@@ -52,8 +55,9 @@ for a = 1:length(horizontal)
         nexttile
         
         hold on
-        impeller_limits(a,angle{b},start_x_H, lim_min_y, lim_max_y)
-
+        impeller_limits(a,angle{b})
+        hold off
+        
         hold on       
         tec = 'SPIV';
         cam = '';
@@ -78,27 +82,32 @@ for a = 1:length(horizontal)
         [lx, outx]=lineH(start_x_H{a}, start_y_H{a}, var_x, var_y, var);
         [lx_final, outx_final] = Cleaning (lx, outx);
         scatter(lx_final, outx_final, 15, 'filled','^')
-        box on
-    
-        xlim ([start_x_H{a} 0.5])
-        ylim ([lim_min_y lim_max_y])
                
+        ylim([lim_min_y lim_max_y])
+        xlim([start_x_H{a} 0.5])
+        box on
+        yticks ([])
+        xticks ([])
+                       
         if a == 1
             title(AR{b})            
         elseif a == length(horizontal)
-            xlabel('r/R')            
+            xlabel('r/R')
+            xticks ((0.0:0.2:0.5))
         else
         end
         
         if b == 1
-            ylabel(horizontal{a}, 'FontSize', 12)
+            ylabel(horizontal{a}, 'fontweight', 'bold')
+            yticks((0.0:0.05:lim_max_y))
             hold off
         else
             hold off
         end
     end
 end
-lh = legend({'Stereo-PIV - k_{3C}','Classic PIV - k_{iso}','Tilted PIV - k_{2C}'}, 'FontSize', 12, 'Orientation', 'horizontal');
+lh = legend({'Impeller edge classic PIV', 'Impeller edge tilted PIV','Stereo-PIV - k_{3C}','Classic PIV - k_{iso}','Tilted PIV - k_{2C}'}, 'FontSize', 12, 'Orientation', 'horizontal');
+lh.NumColumns = 3;
 lh.Layout.Tile = 'south';
 
-Save(save_tif, save_svg)
+Save(save_tif, save_svg, impeller, parameter,'')

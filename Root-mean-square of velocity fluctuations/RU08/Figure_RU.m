@@ -43,10 +43,10 @@ cam = {'Cam 2', 'Cam 1', ''};
 column_title = {'(a)', '(b)', '(c)'};
 pass = '4';
 parameter = 'rms';
-component = 'radial';
+component = 'axial';
 
 cmin = 0.0;
-cmax = 0.2;
+cmax = 0.12;
 showimpeller = 1;
 %-------------------------------------------------------------------------- 
 %Set Figure

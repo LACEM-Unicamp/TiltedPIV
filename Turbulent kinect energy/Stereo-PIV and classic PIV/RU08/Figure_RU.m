@@ -38,12 +38,12 @@ FontStyle %set Times New Roman, size 14 as font style
 impeller = 'RUSHTON08';
 angle = {'0', '15', '30', '45'};
 angle_title = {'AR 0º', 'AR 15º', 'AR 30º', 'AR 45º'};
-tec = 'PIV';
-cam = 'Cam 2';
+tec = 'SPIV';
+cam = '';
 pass = '4';
 parameter = 'tke';
 component = '';
-met = 'iso';
+met = '3C';
 
 cmin = 0.0;
 cmax = 0.2;

@@ -2,11 +2,11 @@ function [] = Set_colorbar(cmin, cmax, component)
 
 cb = colorbar;
 ticksvalue = (cmax-cmin)/4;
-cb.FontSize = 14;
+cb.FontSize = 12;
 cb.Ticks = (cmin:ticksvalue:cmax);
 cb.Layout.Tile = 'East';
 cb.Label.Interpreter = 'latex';
-cb.Label.FontSize = 16;
+cb.Label.FontSize = 14;
 
 if strcmp(component,'radial') == 1 
     cb.Label.String = '$ u''/U_{tip}^2$ ';

@@ -1,7 +1,7 @@
 %--------------------------------------------------------------------------
 %This function reads data from a specific folder with PIV measurements
 %--------------------------------------------------------------------------
-function [var_k,var_x,var_y] = Reader_method(a,AR,tec,cam,pass,met)
+function [var_k,var_x,var_y] = Reader_method(impeller,AR,tec,cam,pass,met)
 mydir  = pwd;
 global dxe dye R H U_tip
 
