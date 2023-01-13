@@ -38,14 +38,14 @@ cam = {'Cam 1', 'Cam 2'};
 horizontal = {'z/H = 0.38', 'z/H = 0.34', 'z/H = 0.28', 'z/H = 0.23'}; %position of the profiles in the horizontal direction
 start_x_H = {0.057, 0.057, 0.057, 0.057};
 start_y_H = {0.38, 0.34, 0.28, 0.23};
-lim_min_y = 0.025;
-lim_max_y = 0.14;
+lim_min_y = 0.0;
+lim_max_y = 0.15;
 
 impeller = 'PBT4508';
 parameter = 'tke_profile';
 
 figure(1);
-set(figure(1),'Position',[50 50 850 800]);
+set(figure(1),'Position',[50 50 900 800]);
 layout = tiledlayout(4, 4);
 tilespacing = 'tight';
         
@@ -83,7 +83,7 @@ for a = 1:length(horizontal)
         scatter(lx_final, outx_final, 15, 'filled','^')
         box on
     
-        xlim ([start_x_H{a} 0.48])
+        xlim ([start_x_H{a} 0.5149])
         ylim ([lim_min_y lim_max_y])
         yticks([])
         xticks([])
@@ -92,12 +92,12 @@ for a = 1:length(horizontal)
             title(AR{b})            
         elseif a == length(horizontal)
             xlabel('r/R')
-            xticks(0.0:0.2:0.48)
+            xticks(0.0:0.2:0.5149)
         else
         end
         if b == 1
             ylabel(horizontal{a},'fontweight','bold')
-            yticks(0.02:0.03:0.14)
+            yticks(0.0:0.05:0.15)
             hold off
         else
             hold off

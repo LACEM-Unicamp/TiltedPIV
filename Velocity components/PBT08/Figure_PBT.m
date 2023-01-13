@@ -25,7 +25,7 @@ dye = 124.5;
 
 global lim_min_x lim_max_x lim_min_y lim_max_y
 lim_min_x = 0.056;      % min limit of x in fields
-lim_max_x = 0.48;     % max limit of x in fields 
+lim_max_x = 0.5149;     % max limit of x in fields 
 
 lim_min_y = 0.1782;     % min limit of y in fields 
 lim_max_y = 0.39;       % max limit of y in fields
@@ -51,7 +51,7 @@ showimpeller = 1;
 %Set Figure
 %--------------------------------------------------------------------------
 figure(1);
-set(figure(1),'Position',[50 50 650 800]);
+set(figure(1),'Position',[50 50 700 800]);
 layout = tiledlayout(4,3);
 layout.OuterPosition = [0 0 0.95 0.95];
 

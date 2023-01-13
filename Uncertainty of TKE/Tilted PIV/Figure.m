@@ -41,15 +41,15 @@ lim_max_y_ru = 0.42;   % max limit of y in graphs
 dxe_pbt = 47.25;  
 dye_pbt = 124.5;
 lim_min_x_pbt = 0.056;  % min limit of x in graphs 
-lim_max_x_pbt = 0.48; % max limit of x in graphs 
-lim_min_y_pbt = 0.17; % min limit of y in graphs 
+lim_max_x_pbt = 0.5149; % max limit of x in graphs 
+lim_min_y_pbt = 0.1782; % min limit of y in graphs 
 lim_max_y_pbt = 0.39;   % max limit of y in graphs
 %-------------------------------------------------------------------------- 
 %Figure parameters
 %-------------------------------------------------------------------------- 
 FontStyle %set Times New Roman, size 14 as font style
 
-impeller = 'RUSHTON08';
+impeller = 'PBT4508';
 AR_RU = {'0','15','30','45'};
 angle_label_RU = {'AR 0º','AR 15º','AR 30º','AR 45º'};
 AR_PBT = {'0','22_5','45','67_5'};
@@ -62,7 +62,7 @@ parameter = 'uncertainty_tke';
 met = {'iso','2C'};
 
 cmin = 0.0;
-cmax = 0.01;
+cmax = 0.005;
 showimpeller = 1;
 showtt = 0;
 line_title = {'(a)', '(b)'};

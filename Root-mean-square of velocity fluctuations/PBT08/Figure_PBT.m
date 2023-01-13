@@ -26,7 +26,7 @@ dye = 124.5;
 
 global lim_min_x lim_max_x lim_min_y lim_max_y
 lim_min_x = 0.056;      % min limit of x in fields
-lim_max_x = 0.48;     % max limit of x in fields 
+lim_max_x = 0.5149;     % max limit of x in fields 
 
 lim_min_y = 0.1782;     % min limit of y in fields 
 lim_max_y = 0.39;       % max limit of y in fields
@@ -43,10 +43,10 @@ cam = {'Cam 2', 'Cam 1', ''};
 column_title = {'(a)', '(b)', '(c)'};
 pass = '4';
 parameter = 'rms';
-component = 'radial';
+component = 'axial';
 
 cmin = 0.0;
-cmax = 0.12;
+cmax = 0.08;
 showimpeller = 1;
 %-------------------------------------------------------------------------- 
 %Set Figure

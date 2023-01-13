@@ -13,8 +13,11 @@ if strcmp(cblabel,'iso') == 1
     cb.Label.String = '$|k_{3C}-k_{iso}|/k_{3C}$';
 elseif strcmp(cblabel,'2C') == 1
     cb.Label.String = '$|k_{3C}-k_{2C}|/k_{3C}$';
-else
+elseif strcmp(cblabel,'difftke_classic_tilted') == 1
+    cb.Label.String = '$|k_{iso}-k|/k_{iso}$';
+elseif strcmp(cblabel,'difftke_stereo_piv') == 1
     cb.Label.String = '$|k_{3C}-k|/k_{3C}$';
+else
 end
 
 end

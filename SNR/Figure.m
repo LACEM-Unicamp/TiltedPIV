@@ -39,8 +39,8 @@ lim_max_y_ru = 0.42;   % max limit of y in graphs
 dxe_pbt = 47.25;  
 dye_pbt = 124.5;
 lim_min_x_pbt = 0.056;  % min limit of x in graphs 
-lim_max_x_pbt = 0.48; % max limit of x in graphs 
-lim_min_y_pbt = 0.17; % min limit of y in graphs 
+lim_max_x_pbt = 0.5149; % max limit of x in graphs 
+lim_min_y_pbt = 0.1782; % min limit of y in graphs 
 lim_max_y_pbt = 0.39;   % max limit of y in graphs
 %-------------------------------------------------------------------------- 
 %Figure parameters

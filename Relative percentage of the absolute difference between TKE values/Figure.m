@@ -39,8 +39,8 @@ lim_max_y_ru = 0.42;   % max limit of y in graphs
 dxe_pbt = 47.25;  
 dye_pbt = 124.5;
 lim_min_x_pbt = 0.056;  % min limit of x in graphs 
-lim_max_x_pbt = 0.48; % max limit of x in graphs 
-lim_min_y_pbt = 0.17; % min limit of y in graphs 
+lim_max_x_pbt = 0.5149; % max limit of x in graphs 
+lim_min_y_pbt = 0.1782; % min limit of y in graphs 
 lim_max_y_pbt = 0.39;   % max limit of y in graphs
 %-------------------------------------------------------------------------- 
 %Figure parameters
@@ -54,9 +54,9 @@ AR_PBT = {'0','22_5','45','67_5'};
 angle_label_PBT = {'AR 0º','AR 22.5º','AR 45º','AR 67.5º'};
 
 tec = 'SPIV';
-cam = 'Cam 1';
+cam = 'Cam 2';
 pass = '4';
-parameter = 'absdiff_tke';
+parameter = 'difftke_stereo_piv';
 met_cam2 = 'iso';
 met_cam1 = {'iso','2C'};
 
@@ -101,7 +101,7 @@ if strcmp(cam,'Cam 2') == 1
         
         for j = 1:length(angle)          
             nexttile
-            [var_e,var_x,var_y] = Reader_diff_tke(impeller, angle{j}, cam, pass, met_cam2);    
+            [var_e,var_x,var_y] = Reader_difftke_stereo_piv(impeller, angle{j}, cam, pass, met_cam2);    
             
             if strcmp(impeller,'RUSHTON08')            
                 Graph_RU(var_x,var_y,var_e,1,0,cmax,cmin,1,angle{j},showimpeller,tec,cam)
@@ -152,7 +152,13 @@ elseif strcmp(cam,'Cam 1') == 1
 
     for j = 1:length(angle)          
         nexttile
-        [var_e,var_x,var_y] = Reader_diff_tke(impeller, angle{j}, cam, pass, met_cam1{i});    
+        if strcmp(parameter,'difftke_stereo_piv')
+            [var_e,var_x,var_y] = Reader_difftke_stereo_piv(impeller, angle{j}, cam, pass, met_cam1{i});
+        elseif strcmp(parameter,'difftke_classic_tilted')
+            [var_e,var_x,var_y] = Reader_difftke_classic_tilted(impeller, angle{j}, cam, pass, met_cam1{i});
+        else
+            error('invalid parameter')
+        end
         
         if strcmp(impeller,'RUSHTON08')            
             Graph_RU(var_x,var_y,var_e,0,0,cmax,cmin,showtt,angle{j},showimpeller,tec,cam)
@@ -178,7 +184,7 @@ elseif strcmp(cam,'Cam 1') == 1
     end
     end
 
-    Set_colorbar(cmin, cmax, '')
+    Set_colorbar(cmin, cmax, parameter)
 
 else
     error('invalid camera')
