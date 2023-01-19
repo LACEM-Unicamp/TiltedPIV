@@ -47,7 +47,7 @@ lim_max_y_pbt = 0.39;   % max limit of y in graphs
 %-------------------------------------------------------------------------- 
 FontStyle %set Times New Roman, size 14 as font style
 
-impeller = 'PBT4508';
+impeller = 'RUSHTON08';
 AR_RU = {'0','15','30','45'};
 angle_label_RU = {'AR 0º','AR 15º','AR 30º','AR 45º'};
 AR_PBT = {'0','22_5','45','67_5'};

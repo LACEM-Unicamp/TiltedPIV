@@ -1,10 +1,11 @@
 %Relative percentage of the absolute difference between the TKE values 
-%obtained from PIV measurements for different blade angles 
+%obtained from classic PIV measurements for different blade angles of 
+%(a)Rushton and PBT. 
 %--------------------------------------------------------------------------
 %Options to save figures (0 = do not save, 1 = save)
 %--------------------------------------------------------------------------
-save_tif = 0; % in .tif
-save_svg = 0; % in .svg
+save_tif = 1; % in .tif
+save_svg = 1; % in .svg
 %--------------------------------------------------------------------------
 %Tank and impeller properties
 %--------------------------------------------------------------------------
@@ -47,19 +48,21 @@ lim_max_y_pbt = 0.39;   % max limit of y in graphs
 %-------------------------------------------------------------------------- 
 FontStyle %set Times New Roman, size 14 as font style
 
-impeller = 'RUSHTON08';
+impeller = {'RUSHTON08', 'PBT4508'};
 AR_RU = {'0','15','30','45'};
 angle_label_RU = {'AR 0º','AR 15º','AR 30º','AR 45º'};
 AR_PBT = {'0','22_5','45','67_5'};
 angle_label_PBT = {'AR 0º','AR 22.5º','AR 45º','AR 67.5º'};
 
-tec = 'PIV';
-cam = {'Cam 2', 'Cam 1'};
-pass = '3';
-parameter = 'SNR';
+tec = 'SPIV';
+cam = 'Cam 2';
+pass = '4';
+parameter = 'difftke_stereo_piv';
+met_cam2 = 'iso';
+met_cam1 = {'iso','2C'};
 
-cmin = 1;
-cmax = 4;
+cmin = 0;
+cmax = 100;
 showimpeller = 1;
 showtt = 0;
 line_title = {'(a)', '(b)'};
@@ -72,7 +75,8 @@ set(figure(1),'Position',[50 50 800 400]);
 layout = tiledlayout(2,4);
 layout.OuterPosition = [0 0 0.95 0.95];
 
-if strcmp(impeller,'RUSHTON08') == 1
+for i = 1:length(impeller)
+if strcmp(impeller{i},'RUSHTON08') == 1
     angle = AR_RU;
     angle_title = angle_label_RU;
     U_tip = U_tip_ru;
@@ -82,7 +86,7 @@ if strcmp(impeller,'RUSHTON08') == 1
     lim_max_x = lim_max_x_ru;
     lim_min_y = lim_min_y_ru;
     lim_max_y = lim_max_y_ru;
-elseif strcmp(impeller,'PBT4508') == 1
+elseif strcmp(impeller{i},'PBT4508') == 1
     angle = AR_PBT;
     angle_title = angle_label_PBT;
     U_tip = U_tip_pbt;
@@ -96,35 +100,40 @@ else
     error('invalid impeller')
 end
 
-for i = 1:length(cam)
-    for j = 1:length(angle)          
-        nexttile
-        [var_e,var_x,var_y] = Reader_SNR(impeller, angle{j}, tec, cam{i}, pass, parameter);
-
-        if strcmp(impeller,'RUSHTON08')            
-            Graph_RU(var_x,var_y,var_e,0,0,cmax,cmin,showtt,angle{j},showimpeller,tec,cam{i})
-        elseif strcmp(impeller,'PBT4508')
-            Graph_PBT(var_x,var_y,var_e,0,0,cmax,cmin,showtt,angle{j},showimpeller,tec,cam{i})
-        else
-            error('invalid impeller')
-        end
-
-        if j == 1
-            ylabel('z/H')
-            text (-0.23,0.45,line_title{i},'fontweight','bold')
-        else
-        end
-
-        if i == 1
-            title(angle_title{j},'FontWeight','bold')
-        elseif i == length(cam)
-            xlabel('r/R')
-        else
-        end
-
+for j = 1:length(angle)          
+    nexttile
+    if strcmp(parameter,'difftke_stereo_piv')
+        [var_e,var_x,var_y] = Reader_difftke_stereo_piv(impeller{i}, angle{j}, cam, pass, met_cam2);
+    elseif strcmp(parameter,'difftke_classic_tilted')
+        [var_e,var_x,var_y] = Reader_difftke_classic_tilted(impeller{i}, angle{j}, cam, pass, met_cam2);
+    else
+        error('invalid parameter')
     end
-end
-    
-Set_colorbar(cmin, cmax, '')
 
-Save(save_tif, save_svg, impeller, parameter, '')
+    if strcmp(impeller{i},'RUSHTON08')            
+        Graph_RU(var_x,var_y,var_e,0,0,cmax,cmin,showtt,angle{j},showimpeller,tec,cam)
+    elseif strcmp(impeller{i},'PBT4508')
+        Graph_PBT(var_x,var_y,var_e,0,0,cmax,cmin,showtt,angle{j},showimpeller,tec,cam)
+    else
+        error('invalid impeller')
+    end
+
+    if j == 1
+        ylabel('z/H')
+        text (-0.2,0.42,line_title{i},'fontweight','bold')
+    else
+    end
+
+    title(angle_title{j},'FontWeight','bold')
+    
+    if i == length(impeller)
+        xlabel('r/R')
+    else
+    end
+
+end
+end
+
+Set_colorbar(cmin, cmax, parameter)
+
+Save(save_tif, save_svg, '', parameter, cam)

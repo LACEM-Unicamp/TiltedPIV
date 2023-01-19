@@ -46,7 +46,7 @@ parameter = 'UQrms';
 component = {'radial', 'axial', 'tangential'};
 
 cmin = 0.0;
-cmax = 0.12;
+cmax = 0.08;
 showimpeller = 1;
 %-------------------------------------------------------------------------- 
 %Set Figure
